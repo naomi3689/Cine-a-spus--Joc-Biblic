@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Cine a spus? - Joc Biblic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+        <div id="total-timer">Timp: 00:00</div>
+        <div id="correct-counter">Corecte: 0</div>
+    </div>
+    <h1>Cine a spus?</h1>
+    <div id="game-zone">
+        <div id="question-text">Se încarcă...</div>
+        <div id="options-container"></div>
+        <div id="score-display">Scor: 0</div>
+    </div>
+    <div id="result-zone" class="hidden">
+        <div class="trophy">🏆</div>
+        <h2>Felicitări!</h2>
+        <p id="final-score"></p>
+        <button class="retry-btn" onclick="location.reload()">Joacă din nou</button>
+    </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

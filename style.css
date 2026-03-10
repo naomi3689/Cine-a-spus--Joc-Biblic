@@ -1,0 +1,118 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --primary-color: #2d3436;
+    --correct: #00b894;
+    --wrong: #d63031;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-gradient);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.quiz-container {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+}
+
+h1 { color: #0984e3; margin-top: 10px; font-size: 1.8rem; }
+
+/* Bara de Progres */
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background: #dfe6e9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #0984e3;
+    transition: width 0.4s ease;
+}
+
+#question-text {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Stil Butoane Wordwall */
+button {
+    background: #ffffff; /* Culoarea fundalului butonului */
+    color: #2f3542;      /* Culoarea textului */
+    border: 2px solid #0984e3;
+    border-radius: 15px;
+    padding: 15px 20px;
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #2f3542;
+}
+
+button:hover {
+    background: #0984e3; /* Se schimbă fundalul în albastru la hover */
+    color: white;        /* Textul devine alb */
+    border-color: #0984e3;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#total-timer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-weight: bold;
+    color: #0984e3;
+    font-family: monospace;
+    font-size: 1.1rem;
+    z-index: 100;
+}
+#correct-counter {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-weight: bold;
+    color: #00b894; /* Un verde similar cu cel de la Wordwall */
+    font-size: 1.1rem;
+    z-index: 100;
+}
+
+.btn-correct { background-color: var(--correct) !important; color: white; border-color: #55efc4; }
+.btn-wrong { background-color: var(--wrong) !important; color: white; border-color: #ff7675; }
+
+#score-display {
+    font-weight: bold;
+    color: #0984e3;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.hidden { display: none; }
+.trophy { font-size: 4rem; margin-bottom: 10px; }
