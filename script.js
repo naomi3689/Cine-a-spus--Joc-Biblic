@@ -2,7 +2,7 @@ const întrebări = [
     { q: "„Ci voi veți primi o putere când se va coborî Duhul Sfânt peste voi.”", options: ["Petru", "Isus Hristos", "Ioan", "Iacov"], correct: 1 },
     { q: "„Acest Isus care S-a înălțat la cer din mijlocul vostru va veni în același fel...”", options: ["Îngerii", "Pavel", "Ștefan", "Luca"], correct: 0 },
     { q: "„Sunt plini de must!”", options: ["Pilat", "Marii preoți", "Unii care își băteau joc", "Soldații"], correct: 2 },
-    { q: "„Voi turna Duhul Meu peste orice făptură”", options: ["Petru", "Pavel", "Barnaba", "Filip"], correct: 0 },
+    { q: "„Voi turna Duhul Meu peste orice făptură”", options: ["Ioel", "Pavel", "Barnaba", "Filip"], correct: 0 },
     { q: "„Pocăiți-vă și fiecare din voi să fie botezat în Numele lui Isus Hristos.”", options: ["Anania", "Matei", "Petru", "Andrei"], correct: 2 },
     { q: "„Argint și aur n-am dar ce am îți dau: în Numele lui Isus Hristos...”", options: ["Pavel", "Petru", "Ioan", "Ștefan"], correct: 1 },
     { q: "„Cu ce putere sau în numele cui ați făcut voi lucrul acesta?”", options: ["Sinedriul", "Irod", "Pilat", "Corneliu"], correct: 0 },
@@ -31,6 +31,36 @@ let scorA = 0;
 let scorB = 0;
 let raspunsA = null;
 let raspunsB = null;
+let timer;
+let timeLeft = 30;
+
+function pornesteCronometru() {
+    timeLeft = 30;
+    actualizeazaBaraTimer();
+    
+    clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        actualizeazaBaraTimer();
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            // Dacă expiră timpul și cineva n-a răspuns, forțăm validarea
+            if (raspunsA === null) raspunsA = -1; // Marcăm ca "neprecizat"
+            if (raspunsB === null) raspunsB = -1;
+            valideazăRunda();
+        }
+    }, 1000);
+}
+function actualizeazaBaraTimer() {
+    const procent = (timeLeft / 30) * 100;
+    const bara = document.getElementById("timer-bar");
+    bara.style.width = procent + "%";
+    
+    // Schimbăm culoarea în roșu când mai sunt 10 secunde
+    if (timeLeft <= 10) bara.style.background = "#eb4141";
+    else bara.style.background = "#55efc4";
+}
 
 function afișeazăÎntrebare() {
     if (indexCurent >= întrebări.length) {
@@ -39,7 +69,6 @@ function afișeazăÎntrebare() {
     }
 
     document.getElementById("current-q-num").innerText = indexCurent + 1;
-
     raspunsA = null;
     raspunsB = null;
 
@@ -54,9 +83,11 @@ function afișeazăÎntrebare() {
         const div = document.createElement("div");
         div.className = "option-bar";
         div.id = "opt-" + i;
-        div.innerHTML = `<strong>${i + 1}.</strong> ${opt}`;
+        div.innerHTML = `<strong>${i + 1}.</strong> ${opt} <span class="status-icon" id="status-${i}"></span>`;
         container.appendChild(div);
     });
+
+    pornesteCronometru();
 }
 
 window.addEventListener("keydown", (e) => {
@@ -82,28 +113,41 @@ window.addEventListener("keydown", (e) => {
 });
 
 function valideazăRunda() {
+    clearInterval(timer); // Oprim timpul când amândoi au răspuns
     const corect = întrebări[indexCurent].correct;
     
+    // Calcul scor
     if (raspunsA === corect) scorA += 10; else scorA -= 5;
     if (raspunsB === corect) scorB += 10; else scorB -= 5;
 
-    // 1. Colorăm răspunsul corect cu Verde (fundalul se face verde)
+    // Afișăm Bifa ✅ la cel corect
     document.getElementById("opt-" + corect).classList.add("btn-correct");
+    document.getElementById("status-" + corect).innerText = " ✅";
 
-    // 2. Punem bordurile de jucător folosind box-shadow (ca să nu dispară sub verde)
+    // Afișăm X ❌ la cele greșite alese de echipe
+    if (raspunsA !== corect && raspunsA !== -1) {
+        let elA = document.getElementById("opt-" + raspunsA);
+        elA.classList.add("btn-wrong");
+        document.getElementById("status-" + raspunsA).innerText = " ❌";
+    }
+    if (raspunsB !== corect && raspunsB !== -1) {
+        let elB = document.getElementById("opt-" + raspunsB);
+        elB.classList.add("btn-wrong");
+        document.getElementById("status-" + raspunsB).innerText = " ❌";
+    }
+
+    // Bordurile de jucător (box-shadow)
     let elA = document.getElementById("opt-" + raspunsA);
     let elB = document.getElementById("opt-" + raspunsB);
-
-    if (raspunsA !== corect) elA.classList.add("btn-wrong");
-    if (raspunsB !== corect) elB.classList.add("btn-wrong");
-
-    // Aplicăm "bordura" groasă de 8px folosind box-shadow interior și exterior
-    // Albastru pentru Echipa A, Roșu pentru Echipa B
-    if (raspunsA === raspunsB) {
-        // Dacă ambii au ales la fel, facem o bordură mixtă (negru/gri) foarte groasă
-        elA.style.boxShadow = "0 0 0 8px #2d3436 inset, 0 0 0 8px #2d3436";
-    } else {
-        elA.style.boxShadow = "0 0 0 8px #0984e3 inset, 0 0 0 8px #0984e3";
+    
+    if (raspunsA !== -1) {
+        if (raspunsA === raspunsB) {
+            elA.style.boxShadow = "0 0 0 8px #2d3436 inset, 0 0 0 8px #2d3436";
+        } else {
+            elA.style.boxShadow = "0 0 0 8px #0984e3 inset, 0 0 0 8px #0984e3";
+        }
+    }
+    if (raspunsB !== -1 && raspunsA !== raspunsB) {
         elB.style.boxShadow = "0 0 0 8px #d63031 inset, 0 0 0 8px #d63031";
     }
 
@@ -111,22 +155,10 @@ function valideazăRunda() {
     document.getElementById("score-b").innerText = scorB;
 
     setTimeout(() => {
-        // Resetăm umbrele de bordură
-        const bare = document.querySelectorAll(".option-bar");
-        bare.forEach(b => b.style.boxShadow = "none");
-        
         indexCurent++;
-        
-        // Dacă mai sunt întrebări, resetăm gri-ul, dacă nu, mergem la final
-        if (indexCurent < întrebări.length) {
-            document.getElementById("box-a").classList.remove("voted-hidden");
-            document.getElementById("box-b").classList.remove("voted-hidden");
-        }
-        
         afișeazăÎntrebare();
     }, 3000);
 }
-
 function sfârșitJoc() {
     document.getElementById("game-zone").classList.add("hidden");
     document.getElementById("result-zone").classList.remove("hidden");

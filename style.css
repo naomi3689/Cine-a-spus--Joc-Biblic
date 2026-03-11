@@ -103,7 +103,29 @@ body {
     color: white; 
 }
 
+/* Containerul barei de timp */
+.timer-container {
+    width: 100%;
+    height: 10px;
+    background-color: #dfe6e9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
 
+#timer-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #55efc4; /* Verde deschis */
+    transition: width 1s linear;
+}
+
+/* Simbolurile ✅ și ❌ */
+.status-icon {
+    float: right;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
 
 .hidden { display: none; }
 
