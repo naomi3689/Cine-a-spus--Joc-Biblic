@@ -1,118 +1,118 @@
-:root {
-    --bg-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --primary-color: #2d3436;
-    --correct: #00b894;
-    --wrong: #d63031;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-gradient);
-    font-family: 'Segoe UI', Roboto, sans-serif;
+.main-title {
+    color: #6c5ce7;
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+#question-counter {
+    font-weight: bold;
+    color: #636e72;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
 }
 
 .quiz-container {
     background: white;
-    width: 90%;
-    max-width: 500px;
     padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 700px;
     text-align: center;
+}
+
+#team-scores {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.score-box {
     position: relative;
+    padding: 20px 25px; /* Am mărit padding-ul */
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1.4rem; /* Scorul mai mare */
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-h1 { color: #0984e3; margin-top: 10px; font-size: 1.8rem; }
-
-/* Bara de Progres */
-.progress-container {
-    width: 100%;
-    height: 10px;
-    background: #dfe6e9;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    overflow: hidden;
+.key-hint {
+    font-size: 1.3rem; /* Mult mai mare */
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: 800; /* Scris foarte gros */
+    color: white;
+    letter-spacing: 1px;
 }
 
-#progress-bar {
-    width: 0%;
-    height: 100%;
-    background: #0984e3;
-    transition: width 0.4s ease;
+.team-a { background-color: #0984e3; color: white; }
+.team-b { background-color: #d63031; color: white; }
+
+.voted-hidden { 
+    opacity: 0.3; 
+    filter: grayscale(100%);
+    transform: scale(0.9);
 }
 
 #question-text {
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-bottom: 25px;
+    color: #2d3436;
+    min-height: 80px;
 }
 
-/* Stil Butoane Wordwall */
-button {
-    background: #ffffff; /* Culoarea fundalului butonului */
-    color: #2f3542;      /* Culoarea textului */
-    border: 2px solid #0984e3;
-    border-radius: 15px;
-    padding: 15px 20px;
-    width: 100%;
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: #2f3542;
-}
-
-button:hover {
-    background: #0984e3; /* Se schimbă fundalul în albastru la hover */
-    color: white;        /* Textul devine alb */
-    border-color: #0984e3;
-    transform: scale(1.02);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-#total-timer {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: white;
-    padding: 10px 15px;
+.option-bar {
+    background: #f1f2f6;
+    padding: 15px;
+    margin: 15px 0; /* Puțin mai mult spațiu între ele pentru bordura groasă */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-weight: bold;
-    color: #0984e3;
-    font-family: monospace;
-    font-size: 1.1rem;
-    z-index: 100;
-}
-#correct-counter {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-weight: bold;
-    color: #00b894; /* Un verde similar cu cel de la Wordwall */
-    font-size: 1.1rem;
-    z-index: 100;
-}
-
-.btn-correct { background-color: var(--correct) !important; color: white; border-color: #55efc4; }
-.btn-wrong { background-color: var(--wrong) !important; color: white; border-color: #ff7675; }
-
-#score-display {
-    font-weight: bold;
-    color: #0984e3;
+    border: none; /* Am scos border-ul clasic */
     font-size: 1.2rem;
-    margin-top: 10px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
+
+.btn-correct { 
+    background-color: #2ecc71 !important; 
+    color: white; 
+    border-color: #27ae60 !important; 
+}
+.btn-wrong { 
+    background-color: #ff7675 !important; 
+    color: white; 
+}
+
+
 
 .hidden { display: none; }
-.trophy { font-size: 4rem; margin-bottom: 10px; }
+
+.retry-btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

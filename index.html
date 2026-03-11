@@ -2,29 +2,37 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Cine a spus? - Joc Biblic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine a spus? - Faptele Apostolilor</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-container">
-    <div class="progress-container">
-        <div id="progress-bar"></div>
-        <div id="total-timer">Timp: 00:00</div>
-        <div id="correct-counter">Corecte: 0</div>
+       <div class="quiz-container">
+    <h1 class="main-title">CINE A SPUS?</h1>
+    
+    <div id="question-counter">Întrebarea: <span id="current-q-num">1</span>/25</div>
+
+    <div id="team-scores">
+        <div class="score-box team-a" id="box-a">
+            <div class="key-hint">Taste: 1, 2, 3, 4</div>
+            Echipa A: <span id="score-a">0</span>
+        </div>
+        <div class="score-box team-b" id="box-b">
+            <div class="key-hint">Taste: 7, 8, 9, 0</div>
+            Echipa B: <span id="score-b">0</span>
+        </div>
     </div>
-    <h1>Cine a spus?</h1>
+    
     <div id="game-zone">
-        <div id="question-text">Se încarcă...</div>
+        <div id="question-text">Se încarcă citatul...</div>
         <div id="options-container"></div>
-        <div id="score-display">Scor: 0</div>
     </div>
+
     <div id="result-zone" class="hidden">
-        <div class="trophy">🏆</div>
-        <h2>Felicitări!</h2>
-        <p id="final-score"></p>
-        <button class="retry-btn" onclick="location.reload()">Joacă din nou</button>
+        <h1 id="winner-text"></h1>
+        <button class="retry-btn" onclick="location.reload()">JOC NOU</button>
     </div>
-    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
